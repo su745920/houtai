@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use Illuminate\Support\Facades\Session;
+use App\Models\{AdminModule, AdminModuleAction, AdminRole, AdminRolePermission};
+use Illuminate\Http\Request;
+
+class AdminRolePermissionController extends Controller
+{
+    public function postUpdateV2(Request $request)
+    {
+        if (session()->get('admin_is_super') != '1') {
+            abort(403);
+        }
+        $roleID = request()->input('id', null);
+
+        $role = AdminRole::find($roleID);
+        if ($role == null) {
+            abort(404);
+        }
+        $authortityList=$request->input("authortityList");
+        $role->authortityList=$authortityList;
+        $role->save();
+        return $this->success('修改成功');
+    }
+    
+    public function update()
+    {
+        if (session()->get('admin_is_super') != '1') {
+            abort(403);
+        }
+        $id = request()->input('id', '');
+        $adminRole = AdminRole::find($id);
+        if ($adminRole == null) {
+            abort(404);
+        }
+        
+        $authorityList=$adminRole->authortityList;//
+
+        $modules = AdminModule::all();
+        $modules_data = [];
+        foreach ($modules as $index => $m) {
+            $action = AdminModuleAction::where("admin_module_id", $m->id)->where("level", ">=", 0)->get();
+            if (count($action)) {
+                $m->actions = $action;
+                $modules_data[$index] = $m;
+            }
+        }
+        $results = AdminRolePermission::where('role_id', $adminRole->id)->get();
+        if (empty($results)) {
+            $permissions = [];
+        } else {
+            $results = $results->toArray();
+            $permissions = [];
+            foreach ($results as $row) {
+                $permissions[$row['module']][] = $row['action'];
+            }
+        }
+        return view('admin.manager.role_permission', [
+             'authorityList' => $authorityList,
+            'admin_role' => $adminRole,
+            'modules' => $modules_data,
+            'permissions' => $permissions,
+            'success' => Session::get('success', null)
+        ]);
+    }
+
+    public function postUpdate()
+    {
+        if (session()->get('admin_is_super') != '1') {
+            abort(403);
+        }
+        $roleID = request()->input('id', null);
+
+        $role = AdminRole::find($roleID);
+        if ($role == null) {
+            abort(404);
+        }
+
+        AdminRolePermission::where('role_id', $roleID)->delete();
+        foreach (request()->input('permission') as $module => $actions) {
+            foreach ($actions as $action) {
+                $adminRolePermission = new AdminRolePermission();
+                $adminRolePermission->role_id = $roleID;
+                $adminRolePermission->module = $module;
+                $adminRolePermission->action = $action;
+                $adminRolePermission->save();
+            }
+        }
+        return $this->success('修改成功');
+    }
+}

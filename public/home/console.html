@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+</head>
+<body onload="homeBigDataFn();">
+<div style="display: flex;width: 100%;height: 260px;">
+    <div style="flex: 2;border: 1px solid #f7f7f7;margin: 5px;border-radius: 10px;display: flex;justify-content: center;text-align: center;flex-direction: column;">
+        <div style="display: flex;justify-content: center;margin-top:18px;padding-bottom: 0px;border-bottom: 1px solid #f7f7f7">
+            <div style="flex: 1;display: flex;flex-direction: column;margin: 5px;height: 70px;margin-top: -10px;">
+                <div class="bib" style="margin-top: 10px;color: #000;">注册用户</div>
+                <div style="margin-top: 10px;font-weight: 700;"  id="allUserCount"></div>
+            </div>
+            <div style="flex: 1;display: flex;flex-direction: column;margin: 5px;height: 70px;margin-top: -10px;">
+                <div class="bib" style="margin-top: 10px;color: #000;">合约订单</div>
+                <div style="margin-top: 10px;font-weight: 700;">0</div>
+            </div>
+            <div style="flex: 1;display: flex;flex-direction: column;margin: 5px;height: 70px;margin-top: -10px;">
+                <div class="bib" style="margin-top: 10px;color: #000;">秒合约订单</div>
+                <div style="margin-top: 10px;font-weight: 700;">0</div>
+            </div>
+        </div>
+
+
+        <div style="display: flex;justify-content: center;border-bottom: 1px solid #f7f7f7;margin-top: 10px;">
+            <div style="flex: 1;display: flex;flex-direction: column;margin: 5px;height: 70px;margin-top: 0;">
+                <div class="bib" style="margin-top: 10px;color: #000;">今日注册用户</div>
+                <div style="margin-top: 10px;font-weight: 700;">0</div>
+            </div>
+            <div style="flex: 1;display: flex;flex-direction: column;margin: 5px;height: 70px;margin-top: 0;">
+                <div class="bib" style="margin-top: 10px;color: #000;">今日合约订单</div>
+                <div style="margin-top: 10px;font-weight: 700;">0</div>
+            </div>
+            <div style="flex: 1;display: flex;flex-direction: column;margin: 5px;height: 70px;margin-top: 0;">
+                <div class="bib" style="margin-top: 10px;color: #000;">今日秒合约订单</div>
+                <div style="margin-top: 10px;font-weight: 700;">0</div>
+            </div>
+        </div>
+
+        <div style="display: flex;justify-content: center;margin-top: 10px;">
+            <div style="flex: 1;display: flex;flex-direction: column;margin: 5px;height: 70px;margin-top: 0;">
+                <div class="bib" style="margin-top: 10px;color: #000;">今日锁仓挖矿订单</div>
+                <div style="margin-top: 10px;font-weight: 700;">0</div>
+            </div>
+            <div style="flex: 1;display: flex;flex-direction: column;margin: 5px;height: 70px;margin-top: 0;">
+                <div class="bib" style="margin-top: 10px;color: #000;">今日充币</div>
+                <div style="margin-top: 10px;font-weight: 700;">0</div>
+            </div>
+            <div style="flex: 1;display: flex;flex-direction: column;margin: 5px;height: 70px;margin-top: 0;">
+                <div class="bib" style="margin-top: 10px;color: #000;">今日提币</div>
+                <div style="margin-top: 10px;font-weight: 700;">0</div>
+            </div>
+        </div>
+
+
+    </div>
+    <div style="flex: 1;margin: 5px;border-radius: 10px;text-align: center;border: 1px solid #f7f7f7;">
+        <div style="text-align: center;border-bottom: 1px solid #f7f7f7;height: 50px;line-height: 50px;" class="bib">
+            平台充值排行
+        </div>
+        <div style="display: flex;justify-content: center;text-align: center;border-bottom: 1px solid #f7f7f7;padding-left: 5px;padding-right: 5px;height: 30px;line-height: 30px;">
+            <div style="flex: 1;text-align: left;font-size: 12px;">用户名</div>
+            <div style="flex: 1;font-size: 12px;">币种</div>
+            <div style="flex: 1;text-align: right;font-size: 12px;">数量</div>
+        </div>
+        <div style="display: flex;padding-left: 5px;padding-right: 5px;height: 30px;line-height: 30px;">
+            <div style="flex: 1;text-align: left;font-size: 12px;color: #000;">usa1990@gmail.com</div>
+            <div style="flex: 1;font-size: 12px;color: #000;">USDT</div>
+            <div style="flex: 1;text-align: right;font-size: 12px;font-weight: 700;color: #000;">200</div>
+        </div>
+        <div style="display: flex;padding-left: 5px;padding-right: 5px;height: 30px;line-height: 30px;">
+            <div style="flex: 1;text-align: left;font-size: 12px;color: #000;">seller1990@gmail.com</div>
+            <div style="flex: 1;font-size: 12px;color: #000;">USDT</div>
+            <div style="flex: 1;text-align: right;font-size: 12px;font-weight: 700;color: #000;">100</div>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+<script type="text/javascript">
+    function  homeBigDataFn(){
+        var url="/admin/homeBigData";
+        $.post(
+            url,
+            function(data){
+                var message=data.message;
+                //allUserCount":379,"todayRegCount":0,"swapOrderCount":124}}
+                console.log(JSON.stringify(data));
+                var allUserCount=message.allUserCount;
+                $("#allUserCount").html(allUserCount);
+                var todayRegCount=message.todayRegCount;
+                var swapOrderCount=message.swapOrderCount;
+
+
+            });
+    }
+</script>
+<style>
+    .bib {
+        font-size: 16px;
+        font-weight: 700;
+        width: 100%;
+        background: -webkit-gradient(linear, left top, right top, color-stop(34.11%, #01eedd), color-stop(99.99%, #0072f5), to(#01ddcd));
+        background: linear-gradient(90deg, #01eedd 34.11%, #0072f5 99.99%, #01ddcd);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+        text-align: center;
+    }
+</style>
+</html>

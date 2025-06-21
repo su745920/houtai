@@ -1,0 +1,9 @@
+1.workerman启动命令 php artisan socket restart  (SocketLogic.php)
+
+2.用户webscoket启动命令
+cd /www/wwwroot/bicnvip.com/public/vendor/webmsgsender
+php start.php restart
+
+3.采集推送启动命令 php artisan websocket:client restart
+
+4.采集推送启动命令 php artisan websocketalltick:client restart

@@ -1,0 +1,391 @@
+PHP禁用函数删除!!!!
+select * from settings t where t.key='tobe_seller_lockusdt'
+修改下商家保证金字段 并在后台可以修改
+  jdk-8u333-linux-x64.rpm
+
+103.106.202.139 103.106.202.141 103.106.202.143 root cS3JYmwM
+
+上传到 /home
+ 1.  cd /home
+  2. 执行命令安装JDK8:  rpm -ivh jdk-8u333-linux-x64.rpm
+
+  3.上传 elasticsearch_mb4PtK.tar 到 /home
+
+https://blog.csdn.net/guolinynl/article/details/114887192
+PHP版本:7.2必须 如果是7.4会报错
+mkdir -p /path/to/data
+mkdir -p /path/to/logs
+chown -R es:es /path/to/data
+chown -R es:es /path/to/logs
+chown -R  es:es /home/elasticsearch
+
+systemctl stop firewalld.service
+
+！！重要
+需要把 socket.ios.js 文件名改成 aaaaa.js
+2.
+
+# location ~ .*\.(js|css)?$
+    # {
+    #     expires      12h;
+    #     error_log /dev/null;
+    #     access_log /dev/null;
+    # }
+
+    注释掉
+server
+{
+    listen 80;
+		listen 443 ssl http2;
+    server_name gdmall.xyz;
+	index index.html index.php index.htm default.php default.htm default.html;
+    root /www/wwwroot/www.scbff-pro.com/public;
+
+    #SSL-START SSL相关配置，请勿删除或修改下一行带注释的404规则
+    #error_page 404/404.html;
+    #HTTP_TO_HTTPS_START
+    if ($server_port !~ 443){
+        rewrite ^(/.*)$ https://$host$1 permanent;
+    }
+    #HTTP_TO_HTTPS_END
+    ssl_certificate    /www/server/panel/vhost/cert/www.scbff-pro.com/fullchain.pem;
+    ssl_certificate_key    /www/server/panel/vhost/cert/www.scbff-pro.com/privkey.pem;
+    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    add_header Strict-Transport-Security "max-age=31536000";
+    error_page 497  https://$host$request_uri;
+		#SSL-END
+
+    #ERROR-PAGE-START  错误页配置，可以注释、删除或修改
+    #error_page 404 /404.html;
+    #error_page 502 /502.html;
+    #ERROR-PAGE-END
+
+    #PHP-INFO-START  PHP引用配置，可以注释或修改
+    include enable-php-72.conf;
+    #PHP-INFO-END
+
+    #REWRITE-START URL重写规则引用,修改后将导致面板设置的伪静态规则失效
+    include /www/server/panel/vhost/rewrite/www.scbff-pro.com.conf;
+    #REWRITE-END
+
+    location ~/(wss|socket.io) {
+      proxy_pass http://127.0.0.1:2000;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "Upgrade";
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $host;
+    }
+
+    #禁止访问的文件或目录
+    location ~ ^/(\.user.ini|\.htaccess|\.git|\.env|\.svn|\.project|LICENSE|README.md)
+    {
+        return 404;
+    }
+
+    #一键申请SSL证书验证目录相关设置
+    location ~ \.well-known{
+        allow all;
+    }
+
+    #禁止在证书验证目录放入敏感文件
+    if ( $uri ~ "^/\.well-known/.*\.(php|jsp|py|js|css|lua|ts|go|zip|tar\.gz|rar|7z|sql|bak)$" ) {
+        return 403;
+    }
+
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    {
+        expires      30d;
+        error_log /dev/null;
+        access_log /dev/null;
+    }
+
+    # location ~ .*\.(js|css)?$
+    # {
+    #     expires      12h;
+    #     error_log /dev/null;
+    #     access_log /dev/null;
+    # }
+    access_log  /www/wwwlogs/www.scbff-pro.com.log;
+    error_log  /www/wwwlogs/www.scbff-pro.com.error.log;
+}
+
+
+http://103.185.249.156:9200
+
+
+https://code2028.xyz/api/shouyiV2
+
+https://test007.myweb2023.shop/api/shouyiV2
+
+第一步 mysql -u root -p
+121d657127dbc960
+第二部 use mysql
+第三步：
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY '121d657127dbc960' WITH GRANT OPTION;
+//update user set host='%' where user='root'; mysql8
+第四部 刷新权限
+FLUSH PRIVILEGES;
+
+https://103.185.249.156:21585/xterm
+
+curl -H "Content-Type: application/json" -XPUT 127.0.0.1:9200/_all/_settings -d '{ "index.max_result_window" :"20000"}'
+
+ useradd es
+
+su es
+sh  /home/elasticsearch/bin/elasticsearch -d
+
+ps | grep elasticsearch
+-------------
+/www/wwwroot/bicnvip.com
+
+cd /www/wwwroot/bicnvip.com/
+php artisan match start
+
+queue:work1007
+每周一   1
+cd /www/wwwroot/bicnvip.com
+php artisan queue:work
+----------------------
+每周一   2
+schedule:run1007
+cd /www/wwwroot/bicnvip.com
+php artisan schedule:run
+------------------
+每周一  3
+wss1007
+cd /www/wwwroot/bicnvip.com/public/vendor/webmsgsender
+php start.php restart
+
+-----
+每小时30分钟
+web    4
+cd /www/wwwroot/bicnvip.com
+php artisan websocket:client restart
+
+cd /www/wwwroot/site1006.com
+php artisan websocket:client restart
+
+
+****严重提示：**************
+如果提示索引不存在 没事 过会就可以了！！！！系统会自动建立索引
+**************************
+
+
+----
+robot1007
+每周一  5
+cd /www/wwwroot/test007.myweb2023.shop
+php artisan robot 4
+
+/www/wwwroot/okx866.top
+
+websocket1007：cd /www/wwwroot/okx866.top
+php artisan websocket:client start
+
+
+
+org.elasticsearch.bootstrap.StartupException: java.lang.IllegalStateException: failed to obtain node locks, tried [[/path/to/data]] with lock id [0]; maybe these locations are not writable or multiple nodes were started without increasing [node.max_local_storage_nodes] (was [1])?
+        at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:171) ~[elasticsearch-7.15.0.jar:7.15.0]
+        at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:158) ~[elasticsearch-7.15.0.jar:7.15.0]
+        at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:75) ~[elasticsearch-7.15.0.jar:7.15.0]
+        at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:114) ~[elasticsearch-cli-7.15.0.jar:7.15.0]
+        at org.elasticsearch.cli.Command.main(Command.java:79) ~[elasticsearch-cli-7.15.0.jar:7.15.0]
+        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:123) ~[elasticsearch-7.15.0.jar:7.15.0]
+        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:81) ~[elasticsearch-7.15.0.jar:7.15.0]
+Caused by: java.lang.IllegalStateException: failed to obtain node locks, tried [[/path/to/data]] with lock id [0]; maybe these locations are not writable or multiple nodes were started without increasing [node.max_local_storage_nodes] (was [1])?
+        at org.elasticsearch.env.NodeEnvironment.<init>(NodeEnvironment.java:292) ~[elasticsearch-7.15.0.jar:7.15.0]
+        at org.elasticsearch.node.Node.<init>(Node.java:383) ~[elasticsearch-7.15.0.jar:7.15.0]
+        at org.elasticsearch.node.Node.<init>(Node.java:288) ~[elasticsearch-7.15.0.jar:7.15.0]
+        at org.elasticsearch.bootstrap.Bootstrap$5.<init>(Bootstrap.java:219) ~[elasticsearch-7.15.0.jar:7.15.0]
+        at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:219) ~[elasticsearch-7.15.0.jar:7.15.0]
+        at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:399) ~[elasticsearch-7.15.0.jar:7.15.0]
+        at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:167) ~[elasticsearch-7.15.0.jar:7.15.0]
+        ... 6 more
+uncaught exception in thread [main]
+java.lang.IllegalStateException: failed to obtain node locks, tried [[/path/to/data]] with lock id [0]; maybe these locations are not writable or multiple nodes were started without increasing [node.max_local_storage_nodes] (was [1])?
+        at org.elasticsearch.env.NodeEnvironment.<init>(NodeEnvironment.java:292)
+        at org.elasticsearch.node.Node.<init>(Node.java:383)
+        at org.elasticsearch.node.Node.<init>(Node.java:288)
+        at org.elasticsearch.bootstrap.Bootstrap$5.<init>(Bootstrap.java:219)
+        at org.elasticsearch.bootstrap.Bootstrap.setup(Bootstrap.java:219)
+        at org.elasticsearch.bootstrap.Bootstrap.init(Bootstrap.java:399)
+        at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:167)
+        at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:158)
+        at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:75)
+        at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:114)
+        at org.elasticsearch.cli.Command.main(Command.java:79)
+        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:123)
+        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:81)
+For complete error details, refer to the log at /path/to/logs/elasticsearch.log
+[es@C05-A4 root]$
+
+
+-------
+默认文档:
+index.html
+index.php
+index.htm
+default.php
+default.htm
+default.html
+
+
+server
+{
+    listen 80;
+	listen 443 ssl http2;
+    server_name 127.0.0.1 bitbbank.xyz;
+    index index.php index.html index.htm default.php default.htm default.html;
+    root /www/wwwroot/haokegenjin.com/public;
+
+    #SSL-START SSL相关配置，请勿删除或修改下一行带注释的404规则
+    #error_page 404/404.html;
+    #HTTP_TO_HTTPS_START
+    if ($server_port !~ 443){
+        rewrite ^(/.*)$ https://$host$1 permanent;
+    }
+    #HTTP_TO_HTTPS_END
+    ssl_certificate    /www/server/panel/vhost/cert/haokegenjin.com/fullchain.pem;
+    ssl_certificate_key    /www/server/panel/vhost/cert/haokegenjin.com/privkey.pem;
+    ssl_protocols TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_ciphers EECDH+CHACHA20:EECDH+CHACHA20-draft:EECDH+AES128:RSA+AES128:EECDH+AES256:RSA+AES256:EECDH+3DES:RSA+3DES:!MD5;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 10m;
+    add_header Strict-Transport-Security "max-age=31536000";
+    error_page 497  https://$host$request_uri;
+
+    #SSL-END
+	#Directory protection rules, do not manually delete
+	include /www/server/panel/vhost/nginx/dir_auth/haokegenjin.com/*.conf;
+
+    #ERROR-PAGE-START  错误页配置，可以注释、删除或修改
+    #error_page 404 /404.html;
+    #error_page 502 /502.html;
+    #ERROR-PAGE-END
+
+    #PHP-INFO-START  PHP引用配置，可以注释或修改
+    include enable-php-73.conf;
+    #PHP-INFO-END
+
+    #REWRITE-START URL重写规则引用,修改后将导致面板设置的伪静态规则失效
+    include /www/server/panel/vhost/rewrite/haokegenjin.com.conf;
+    #REWRITE-END
+
+    location ~/(wss|socket.io) {
+      proxy_pass http://127.0.0.1:2000;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "Upgrade";
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $host;
+    }
+
+    #禁止访问的文件或目录
+    location ~ ^/(\.user.ini|\.htaccess|\.git|\.svn|\.project|LICENSE|README.md)
+    {
+        return 404;
+    }
+
+    #一键申请SSL证书验证目录相关设置
+    location ~ \.well-known{
+        allow all;
+    }
+
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    {
+        expires      30d;
+        error_log /dev/null;
+        access_log /dev/null;
+    }
+
+    location ~ .*\.(js|css)?$
+    {
+        expires      12h;
+        error_log /dev/null;
+        access_log /dev/null;
+    }
+    access_log  /www/wwwlogs/haokegenjin.com.log;
+    error_log  /www/wwwlogs/haokegenjin.com.error.log;
+}
+
+------
+伪静态:
+
+location / {
+
+                try_files $uri $uri/ /index.php?$query_string;
+}
+
+
+只加这个 注意位置:
+
+ location ~/(wss|socket.io) {
+      proxy_pass http://127.0.0.1:2000;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "Upgrade";
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header Host $host;
+    }
+
+vim /etc/sysctl.conf
+    vm.max_map_count=655360
+
+vim /etc/security/limits.conf
+
+    * soft nofile 65536
+    * hard nofile 131072
+    * soft nproc 4096
+    * hard nproc 4096
+
+
+https://hkshop.xyz/h5/#/pages/home/index
+http://192.168.16.102/admin/main
+http://192.168.16.102/admin/main
+http://192.168.16.102/api/shouyiV2
+
+/www/wwwroot/demo.ucoin.site
+
+cd /www/wwwroot/demo.ucoin.site
+php artisan schedule:run
+
+cd /www/wwwroot/demo.ucoin.site/
+php artisan match start
+
+
+cd /www/wwwroot/demo.ucoin.site
+php artisan websocket:client restart
+
+cd /www/wwwroot/demo.ucoin.site/public/vendor/webmsgsender
+php start.php restart
+
+
+https://demo0721.uxcoin.xyz/api/shouyiV2
+
+
+cd /www/wwwroot/aion22.mom
+php artisan queue:work
+
+cd /www/wwwroot/aion22.mom/public/vendor/webmsgsender
+php start.php restart
+
+
+cd /www/wwwroot/aion22.mom
+php artisan robot 4
+
+
+cd /www/wwwroot/aion22.mom
+php artisan websocket:client restart
+
+cd /www/wwwroot/aion22.mom
+php artisan schedule:run
+
+https://8.218.250.150:17454/cdda2cdc
+http://8.218.250.150:17454/cdda2cdc

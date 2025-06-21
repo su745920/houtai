@@ -1,0 +1,33 @@
+<?php
+
+return [
+ 'logout_success'=>'Thoát thành công',
+  'usernofound' => 'không tìm thấy người dùng',
+      'userexist' => 'Tài khoản đã tồn tại',
+       'account'  => 'Vui lòng nhập số tài khoản',
+      'password' => 'Vui lòng nhập mật khẩu',
+      'mmcw'=>'Mật khẩu cũ sai',
+      'cscw'=>'tham số lỗi',
+      'lcmmbyz'=>'Hai mật khẩu không nhất quán',
+      'mmznzwzj'=>'Mật khẩu chỉ có thể từ 6-16 chữ số',
+      'yzmcw'=>'Lỗi mã xác minh',
+      'zhycz'=>'Tài khoản đã tồn tại',
+      'qtxzqdyqm'=>'Vui lòng điền đúng mã thư mời',
+      'zccg'=>'Đăng ký thành công',
+      'qsrmmhqrmm'=>'Vui lòng nhập mật khẩu hoặc xác nhận mật khẩu',
+      'srlcmmbyz'=>'Nhập hai mật khẩu không nhất quán',
+      'zhbcz'=>'Tài khoản không tồn tại',
+      'yzmbzq'=>'Mã xác minh không đúng',
+      'yzmcw'=>'Lỗi mã xác minh',
+      'xgmmcg'=>'Mật khẩu đã thay đổi thành công',
+      'qsrzfmm'=>'Vui lòng nhập mật khẩu thanh toán',
+      'yhbcz'=>'Người dùng không tồn tại',
+      'nwszzfmm'=>'Bạn chưa đặt mật khẩu thanh toán',
+      'zfmmbcz'=>'Mật khẩu thanh toán không đúng',
+      'qsryzm'=>'Vui lòng nhập mã xác minh',
+      'yzcg'=>'Xác minh thành công',
+      'qsmrz'=>'Xác thực tên thật',
+      'ndsmrzhwtg'=>'Xác thực tên thật của bạn chưa được thông qua',
+      'gzhydjqlxkf'=>'Thành viên này đã bị đóng băng, vui lòng liên hệ với dịch vụ khách hàng',
+      'ok'=>'sửa đổi thành công'
+];

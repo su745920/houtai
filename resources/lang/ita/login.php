@@ -1,0 +1,31 @@
+<?php
+
+return [
+
+    'usernofound' => 'Utente non trovato',
+    'account' => 'Inserisci il numero di conto',
+    'password' => 'Inserisci una password',
+    'mmcw'=>'Errore di password',
+    'cscw'=>'Errore del parametro',
+    'lcmmbyz'=>'Le due password sono incoerenti',
+    'mmznzwzj'=>'La password può essere solo tra 6 e 16 bit',
+    'yzmcw'=>'Errore di codice di verifica',
+    'zhycz'=>'Il conto esiste già',
+    'qtxzqdyqm'=>'Inserisci il codice di invito corretto',
+    'zccg'=>'login è stato efficace',
+    'qsrmmhqrmm'=>'Inserire la password o confermare la password',
+    'srlcmmbyz'=>'Le password inserite due volte sono incoerenti',
+    'zhbcz'=>'Il conto non esiste',
+    'yzmbzq'=>'Codice di verifica errato',
+    'yzmcw'=>'Errore di codice di verifica',
+    'xgmmcg'=>'Password modificata con successo',
+    'qsrzfmm'=>'Inserisci la password di pagamento',
+    'yhbcz'=>"l'utente non esiste",
+    'nwszzfmm'=>'Non hai impostato una password di pagamento',
+    'zfmmbcz'=>'Password di pagamento errata',
+    'qsryzm'=>'Inserire il codice di verifica',
+    'yzcg'=>'Validazione riuscita',
+    'qsmrz'=>'Verificare il suo vero nome',
+    'ndsmrzhwtg'=>'La certificazione del tuo vero nome non è passata',
+    'gzhydjqlxkf'=>'Questo membro è stato congelato, si prega di contattare il servizio clienti',
+];

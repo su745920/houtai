@@ -1,0 +1,168 @@
+public function walletList(Request $request)
+    {
+
+        $currency_name = $request->input('currency_name', '');
+        $user_id = Users::getUserId();
+
+
+        if (empty($user_id)) {
+            return $this->error(trans('wallet.cscw'));
+        }
+
+        $USDTRate = Setting::getValueByKey('USDTRate', 7.22);
+
+        $cache_key_name = "user_wallet_data_{$user_id}";
+        // if (Cache::has($cache_key_name)) {
+        //     $wallet_data = Cache::get($cache_key_name);
+        // } else {
+        $user_wallet = UsersWallet::with(['currencyCoin'])->where('user_id', $user_id)
+            ->whereHas('currencyCoin', function ($query) use ($currency_name) {
+
+                empty($currency_name) || $query->where('name', 'like', '%' . $currency_name . '%');
+
+            })->get();
+
+        $user_wallet->transform(function ($item, $key) {
+            $item->setVisible([
+                'logo',
+                'id', 'currency', 'currency_name', 'sort',
+                'currency_type', 'contract_address',
+                'usdt_price', 'usd_price', 'multi_protocol',
+                'legal_balance', 'lock_legal_balance', 'is_recharge', 'is_withdraw',
+                'lever_balance', 'lock_lever_balance',
+                'change_balance', 'lock_change_balance',
+                'micro_balance', 'lock_micro_balance',
+                'earn_balance', 'lock_earn_balance',
+                'address', 'erc20_address',
+                'is_legal', 'is_lever', 'is_match', 'is_transfer', 'is_micro', 'is_transfer', 'is_distransfer',
+            ]);
+            return $item;
+        });
+        $legal_wallet['balance'] = $user_wallet->where('is_legal', 1)->values()->all();
+        $legal_wallet['totle'] = 0;
+        $legal_wallet['CNY'] = 0;
+        foreach ($legal_wallet['balance'] as $k => $v) {
+            //$num = $v['legal_balance'] + $v['lock_legal_balance'];
+            $num = $v['legal_balance'];
+            if ($v["id"] == 23) {
+                $legal_wallet['totle'] += $num;
+                $legal_wallet['CNY'] += $num;
+            } else {
+                $legal_wallet['totle'] += $num * $v['usdt_price'];
+                $legal_wallet['CNY'] += bc_mul($num, $v['usdt_price'], 6);
+            }
+        }
+
+        //221120 币币资产只显示余额不为0的资产（含冻结）
+        $change_list = $user_wallet->where('is_match', 1)->sortBy("sort")->values()->all();
+
+        $change_wallet['balance'] = $change_list;
+        $change_wallet['totle'] = 0;
+        $change_wallet['CNY'] = 0;
+        foreach ($change_wallet['balance'] as $k => $v) {
+            //$num = $v['change_balance'] + $v['lock_change_balance'];
+            $num= $v['change_balance'];
+            if ($v["id"] == 23) {
+                $change_wallet['totle'] += $num;
+                $change_wallet['CNY'] += $num;
+            } else {
+                $change_wallet['totle'] += $num * $v['usdt_price'];
+                $legal_wallet['CNY'] += bc_mul($num, $v['usdt_price'], 6);
+            }
+            // 20221126 小数点
+            if (in_array($v['currency'], [32, 35])) {
+                $change_wallet['balance'][$k]['change_balance'] = number_format($v['change_balance'], 8, '.', '');
+                $change_wallet['balance'][$k]['lock_change_balance'] = number_format($v['lock_change_balance'], 8, '.', '');
+            } else {
+                $change_wallet['balance'][$k]['change_balance'] = number_format($v['change_balance'], 4, '.', '');
+                $change_wallet['balance'][$k]['lock_change_balance'] = number_format($v['lock_change_balance'], 4, '.', '');
+            }
+        }
+
+        //221120 账户资产只显示 USDT，BTC，ETH，USDC，USD，CNY
+        $lever_list = $user_wallet->where('is_lever', 1)->whereIn('currency', [23, 32, 35, 57, 58, 63])->values()->all();
+
+        $lever_wallet['balance'] = $lever_list;
+        $lever_wallet['totle'] = 0;
+        $lever_wallet['CNY'] = 0;
+
+        foreach ($lever_wallet['balance'] as $k => $v) {
+            //$num = bc_add($v['lever_balance'], $v['lock_lever_balance'], 6);
+            $num=$v['lever_balance'];
+            if ($v["id"] == 23) {
+                $lever_wallet['totle'] += $num;
+                $lever_wallet['CNY'] += $num;
+
+            } else {
+                $lever_wallet['totle'] += bc_mul($num, $v['usdt_price'], 6);
+                $lever_wallet['CNY'] += bc_mul($num, $v['usdt_price'], 6);
+            }
+
+            // 20221126 小数点
+            if (in_array($v['currency'], [32, 35])) {
+                $lever_wallet['balance'][$k]['lever_balance'] = number_format($v['lever_balance'], 8, '.', '');
+                $lever_wallet['balance'][$k]['lock_lever_balance'] = number_format($v['lock_lever_balance'], 8, '.', '');
+            } else {
+                $lever_wallet['balance'][$k]['lever_balance'] = number_format($v['lever_balance'], 4, '.', '');
+                $lever_wallet['balance'][$k]['lock_lever_balance'] = number_format($v['lock_lever_balance'], 4, '.', '');
+            }
+
+        }
+        $micro_list = $user_wallet->where('is_micro', 1)->values()->all();
+
+        //秒合约账户
+        $micro_wallet['CNY'] = 0;
+        $micro_wallet['totle'] = 0;
+        $micro_wallet['balance'] = $micro_list;
+
+        foreach ($micro_wallet['balance'] as $k => $v) {
+            //$num = bc_add($v['micro_balance'], $v['lock_micro_balance'], 6);
+            $num=$v['micro_balance'];
+            if ($v["id"] == 23) {
+                $micro_wallet['totle'] += $num;
+                $micro_wallet['CNY'] += bc_mul($num, $USDTRate, 6);
+            } else {
+                $micro_wallet['totle'] += bc_mul($num, $v['usdt_price'], 6);
+                $micro_wallet['CNY'] += bc_mul($num, $v['usdt_price'], 6);
+            }
+
+        }
+
+        //理财账户
+        //$earn_list = $user_wallet->where('is_earn', 1)->values()->all();
+        $earn_list = $user_wallet->values()->all();
+        $earn_wallet['CNY'] = 0;
+        $earn_wallet['totle'] = 0;
+        $earn_wallet['balance'] = $earn_list;
+        foreach ($earn_wallet['balance'] as $k => $v) {
+
+            //$num = bc_add($v['earn_balance'], $v['lock_earn_balance'], 6);
+            $num=$v['earn_balance'];
+            if ($v["id"] == 23) {
+                $earn_wallet['totle'] += $num;
+                $earn_wallet['CNY'] += bc_mul($num, $USDTRate, 6);
+            } else {
+                $earn_wallet['totle'] += bc_mul($num, $v['usdt_price'], 6);
+                $earn_wallet['CNY'] += bc_mul($num, $v['usdt_price'], 6);
+            }
+        }
+        //
+
+
+        //读取是否开启充提币
+        $is_open_ctbi = Setting::getValueByKey("is_open_CTbi");
+        $wallet_data = [
+            'earn_wallet' =>$earn_wallet,
+            'legal_wallet' => $legal_wallet,
+            'change_wallet' => $change_wallet,
+            'lever_wallet' => $lever_wallet,
+            'micro_wallet' => $micro_wallet,
+            "is_open_ctbi" => $is_open_ctbi,
+            'is_open_CTbi' => $is_open_ctbi,
+            'ExRate' => $USDTRate,
+            'USDTRate' => $USDTRate,
+        ];
+        //Cache::put($cache_key_name, $wallet_data, 60);
+        //  }
+        return $this->success($wallet_data);
+    }

@@ -1,0 +1,1 @@
+select * from settings t where t.key='tobe_seller_lockusdt'

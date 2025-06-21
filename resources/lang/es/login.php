@@ -1,0 +1,31 @@
+<?php
+
+return [
+
+    'usernofound' => 'Usuario no encontrado',
+    'account' => 'Por favor, introduzca el número de cuenta',
+    'password' => 'Introduzca la contraseña',
+    'mmcw'=>'Error de contraseña',
+    'cscw'=>'Error de parámetro',
+    'lcmmbyz'=>'Dos contraseñas inconsistentes',
+    'mmznzwzj'=>'La contraseña sólo puede ser de 6-Entre 16 bits',
+    'yzmcw'=>'Error de código de verificación',
+    'zhycz'=>'La cuenta ya existe',
+    'qtxzqdyqm'=>'Por favor, rellene el Código de invitación correcto',
+    'zccg'=>'Registro exitoso',
+    'qsrmmhqrmm'=>'Introduzca la contraseña o confirme la contraseña',
+    'srlcmmbyz'=>'Introduzca dos contraseñas inconsistentes',
+    'zhbcz'=>'La cuenta no existe',
+    'yzmbzq'=>'Código de verificación incorrecto',
+    'yzmcw'=>'Error de código de verificación',
+    'xgmmcg'=>'Contraseña modificada con éxito',
+    'qsrzfmm'=>'Introduzca la contraseña de pago',
+    'yhbcz'=>'El usuario no existe',
+    'nwszzfmm'=>'No ha establecido la contraseña de pago',
+    'zfmmbcz'=>'Contraseña de pago incorrecta',
+    'qsryzm'=>'Introduzca el Código de verificación',
+    'yzcg'=>'Validación exitosa',
+    'qsmrz'=>'Por favor, autentifique su nombre real',
+    'ndsmrzhwtg'=>'Su autenticación de nombre real aún no ha pasado',
+    'gzhydjqlxkf'=>'Este miembro ha sido congelado, por favor póngase en contacto con el servicio al cliente',
+];

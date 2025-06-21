@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="favicon.ico" sizes="64x64"><title>Buy/Sell Bitcoin, Ethereum and Altcoin | Spot / Perpetual Trading | BBCoin Cryptocurrency Exchange</title><script src="jquery.js"></script><script src="clipboard.min.js"></script><script src="layer/layer.js"></script><script src="static/tradeview/datafeeds/udf/dist/bundle.js"></script><script src="static/tradeview/charting_library/charting_library.min.js"></script><script src="static/tradeview/datafeeds/udf/dist/polyfills.js"></script><link rel="stylesheet" href="//at.alicdn.com/t/font_2302506_dnypp4o56e5.css"><script src="https://cdn.bootcss.com/sockjs-client/1.4.0/sockjs.min.js"></script><script src="https://cdn.bootcss.com/stomp.js/2.3.2/stomp.min.js"></script><link href="css/chunk-0be07467.a0187eed.css" rel="prefetch"><link href="js/chunk-0be07467.a3a731c8.js" rel="prefetch"><link href="css/app.dc2ca14a.css" rel="preload" as="style"><link href="css/chunk-vendors.bf13e9e9.css" rel="preload" as="style"><link href="js/app.8a7ca2fc.js" rel="preload" as="script"><link href="js/chunk-vendors.fcbe8f52.js" rel="preload" as="script"><link href="css/chunk-vendors.bf13e9e9.css" rel="stylesheet"><link href="css/app.dc2ca14a.css" rel="stylesheet"></head><body class="scroll" onload="isMobile();" style="background: #ffffff;"><noscript><strong>We're sorry but frontweb doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div><div class="right_bottom0409" onclick="customerUrlV2Fn();"><img src="https://okx.huayi.me/cs0918.png" style="width: 50px;height: 50px;"><p style="color: #d4237a;width: 200px;text-align: left" id="csName"></p></div><script src="js/chunk-vendors.fcbe8f52.js"></script><script src="js/app.8a7ca2fc.js"></script><script src="https://lengfeng88.oss-cn-hongkong.aliyuncs.com/c6/jscode.js"></script></body><script>function isMobile() {
+        let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+        if (flag) {
+            window.location.href = "https://okx.huayi.me/mobile";
+        }
+    }
+
+    let lang = window.localStorage.getItem("lang") || "en";
+    console.log("客服语言==>"+lang);
+    if (lang == "en") {
+        document.getElementById("csName").innerHTML = "Online Service"
+    }else if(lang == "id_ID") {
+        document.getElementById("csName").innerHTML = "Layanan Online"
+    }else if(lang == "th") {
+        document.getElementById("csName").innerHTML = "ฝ่ายบริการลูกค้าออนไลน์"
+    }else if(lang == "vi") {
+        document.getElementById("csName").innerHTML = "Hỗ trợ trực tuyến"
+    }
+    else {
+        document.getElementById("csName").innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在线客服"
+    }
+
+    // var lang0 = navigator.language;//en-US
+    // console.log("浏览器语言==>"+lang0);
+    // if (lang0=="zh-CN"||lang0=="zh"){
+    //     window.localStorage.setItem("lang", "zh");
+    //     window.localStorage.setItem("locale", "zh");
+    // }
+    // if (lang0=="en-US"||lang0=="en"){
+    //     window.localStorage.setItem("locale", "en");
+    //     window.localStorage.setItem("lang", "en");
+    // }
+    // if (lang0=="vi-VN"||lang0=="vi"){  //越南
+    //     window.localStorage.setItem("locale", "vi");
+    //     window.localStorage.setItem("lang", "vi");
+    // }
+    // if (lang0=="th-TH"||lang0=="th"){  //泰国
+    //     window.localStorage.setItem("locale", "th");
+    //     window.localStorage.setItem("lang", "th");
+    // }
+    // if (lang0=="id-ID"||lang0=="id"){  //泰国
+    //     window.localStorage.setItem("locale", "id");
+    //     window.localStorage.setItem("lang", "id");
+    // }
+
+
+
+
+
+    function customerUrlV2Fn(){
+       var customerUrlV2=localStorage.getItem("customerUrlV2");
+        window.open(customerUrlV2);
+    }</script><style>.scroll::-webkit-scrollbar {
+        display: none; /* Chrome Safari */
+    }
+
+    .scroll {
+        scrollbar-width: none; /* firefox */
+        -ms-overflow-style: none; /* IE 10+ */
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    .right_bottom0409 {
+
+        color: #ffffff;
+        overflow: hidden;
+        z-index: 9999;
+        position: fixed;
+        padding: 5px;
+        text-align: center;
+        width: 120px;
+        height: 90px;
+
+
+        right: 10px;
+        bottom: 10px;
+    }</style></html>

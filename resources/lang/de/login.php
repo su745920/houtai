@@ -1,0 +1,31 @@
+<?php
+
+return [
+
+    'usernofound' => 'Benutzer nicht gefunden',
+    'account' => 'Bitte geben Sie die Kontonummer ein',
+    'password' => 'Bitte geben Sie ein Passwort ein',
+    'mmcw'=>'Fehler beim Passwort',
+    'cscw'=>'Fehler des Parameters',
+    'lcmmbyz'=>'Die beiden Passwörter sind inkonsistent',
+    'mmznzwzj'=>'Das Passwort kann nur in 6 sein-Zwischen 16-Bits',
+    'yzmcw'=>'Fehler bei der Überprüfung',
+    'zhycz'=>'Konto existiert bereits',
+    'qtxzqdyqm'=>'Bitte geben Sie den richtigen Einladungscode ein',
+    'zccg'=>'Anmeldung erfolgreich',
+    'qsrmmhqrmm'=>'Bitte geben Sie das Passwort ein oder bestätigen Sie das Passwort',
+    'srlcmmbyz'=>'Die zweimal eingegebenen Passwörter sind inkonsistent',
+    'zhbcz'=>'Account existiert nicht',
+    'yzmbzq'=>'Falsche Prüfcode',
+    'yzmcw'=>'Fehler bei der Überprüfung',
+    'xgmmcg'=>'Passwort erfolgreich geändert',
+    'qsrzfmm'=>'Bitte geben Sie das Zahlungspasswort ein',
+    'yhbcz'=>'Benutzer existiert nicht',
+    'nwszzfmm'=>'Sie haben kein Zahlungspasswort gesetzt',
+    'zfmmbcz'=>'Falsches Zahlungspasswort',
+    'qsryzm'=>'Bitte geben Sie den Verifizierungscode ein',
+    'yzcg'=>'Validierung erfolgreich',
+    'qsmrz'=>'Bitte überprüfen Sie Ihren wahren Namen',
+    'ndsmrzhwtg'=>'Ihre Namenszertifizierung ist nicht bestanden',
+    'gzhydjqlxkf'=>'Dieses Mitglied wurde eingefroren, wenden Sie sich bitte an den Kundendienst',
+];

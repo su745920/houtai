@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body. style="width: 100%;height: 100%;">
+    <div class="tradingview-widget-container" style="width: 100%;height:500px;">
+        <div id="technical-analysis-chart-demo"  style="width: 100%;height:1500px;"></div>
+
+        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+        <script type="text/javascript">
+            new TradingView.widget(
+                {
+                    "container_id": "technical-analysis-chart-demo",
+                    "width": "100%",
+                    "height": "500px",
+                    "autosize": true,
+                    "symbol": "AAPL",
+                    "interval": "D",
+                    "timezone": "exchange",
+                    "theme": "dark",
+                    "style": "1",
+                    "toolbar_bg": "#f1f3f6",
+                    "withdateranges": true,
+                    "hide_side_toolbar": false,
+                    "allow_symbol_change": true,
+                    "save_image": false,
+                    "studies": [
+                        "ROC@tv-basicstudies",
+                        "StochasticRSI@tv-basicstudies",
+                        "MASimple@tv-basicstudies"
+                    ],
+                    "show_popup_button": true,
+                    "popup_width": "1000",
+                    "popup_height": "650",
+                    "locale": "en"
+                }
+            );
+        </script>
+    </div>
+    </body>
+</html>

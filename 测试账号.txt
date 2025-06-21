@@ -1,0 +1,86 @@
+
+
+Sign-up email code
+Thanks for creating an account with OxEx.
+
+Here's your verification code to complete the registration:
+XXXXX
+
+
+This code is valid for 10 minutes, do not share the code with anyone. Not you? Change your password and contact customer support immediately to freeze your account.
+Regards,
+OxEx Team
+
+c2c_user_order C2cDeal
+
+c2c_deal_send   c2c_info
+
+zsutnvodqopbmdkg
+
+deepcoine@gmail.com
+
+#1186d2 之前的绿色 难看
+#1186d2 蓝色
+
+#1186d2 !important
+
+
+
+
+第一步 mysql -u root -p
+jJLA8xSptGSTrpTe
+第二部 use mysql
+第三步：
+GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'jJLA8xSptGSTrpTe' WITH GRANT OPTION;
+//update user set host='%' where user='root'; mysql8
+第四部 刷新权限
+FLUSH PRIVILEGES;
+
+subcontrol_ratio
+
+
+web.3698756.top
+
+queue:work1007
+每周一   1
+cd /www/wwwroot/web.3698756.top
+php artisan queue:work
+----------------------
+每周一   2
+schedule:run1007
+cd /www/wwwroot/web.3698756.top
+php artisan schedule:run
+------------------
+每周一  3
+wss1007
+cd /www/wwwroot/web.3698756.top/public/vendor/webmsgsender
+php start.php restart
+
+-----
+每小时30分钟
+web    4
+cd /www/wwwroot/web.3698756.top
+php artisan websocket:client restart
+
+
+****严重提示：**************
+如果提示索引不存在 没事 过会就可以了！！！！系统会自动建立索引
+**************************
+
+
+----
+robot1007
+每周一  5
+cd /www/wwwroot/web.3698756.top
+php artisan robot 4
+
+
+
+websocket1007：
+cd /www/wwwroot/web.3698756.top
+php artisan websocket:client start
+
+
+maxcore测试服 宝塔a1gueebh密码42c0ac4d 面板地址 http://8.210.106.22:8888/2d61ca51
+
+http://47.243.184.245:8888/2d61ca51

@@ -1,0 +1,55 @@
+<?php
+
+return [
+
+  'cscw' => 'lỗi tham số',
+      'cbbcz' => 'Ví không tồn tại',
+      'yhwzd' => 'Không tìm thấy người dùng',
+      'zshmytjbz' => 'Chưa có đơn vị tiền tệ nào được thêm vào',
+      'srjebnwfs' => 'Số tiền nhập vào không được âm',
+      'hzcg' => 'Chuyển tiền thành công',
+      'czsb' => 'Thao tác thất bại:',
+      'hzzhlxbxxz' => 'Phải chọn loại tài khoản chuyển tiền',
+      'hzzhlxbnxt' => 'Loại tài khoản chuyển tiền không được giống nhau',
+      'hzzhlxbgf' => 'Loại tài khoản chuyển nhượng là bất hợp pháp, chỉ có thể là:',
+      'hzslbxdy' => 'Số lần chuyển phải lớn hơn 0',
+      'kczyebz' => 'Không đủ số dư khả dụng',
+      'czcg' => 'Thao tác thành công',
+      'czsb' => 'Thao tác thất bại:',
+      'nhmytjtbdz' => 'Bạn chưa thêm địa chỉ rút tiền',
+      'cbzbcz' => 'Tiền tệ này không tồn tại',
+      'yjyctbdz'=>'Đã có địa chỉ rút tiền này',
+      'tjtbdzcg'=>'Thêm địa chỉ rút tiền thành công',
+      'ctbdzbcz'=>'Địa chỉ rút tiền này không tồn tại',
+      'nmyqxsccdz'=>'Bạn không có quyền xóa địa chỉ này',
+      'sctbdzcg'=>'Xóa địa chỉ rút tiền thành công',
+      'yzmbxtx'=>'Mã xác minh phải được điền',
+      'yzmcw'=>'Lỗi mã xác minh',
+      'qxzxylx'=>'Vui lòng chọn loại giao thức',
+      'dqbztbbqbnwk'=>'Nhãn rút tiền của đơn vị tiền tệ hiện tại không được để trống',
+      'srdjebxdy'=>'Số tiền đã nhập phải lớn hơn 0',
+      'tbslbnxyzxz'=>'Số tiền rút không được nhỏ hơn giá trị tối thiểu',
+      'tbslbngyzdz'=>'Số tiền rút không được cao hơn giá trị tối đa',
+      'yebz'=>'Số dư không đủ',
+      'yebzyzfsxf'=>'Số dư không đủ để thanh toán phí xử lý',
+      'tbsqycgddsh'=>'Đơn rút tiền đã thành công, đang chờ phê duyệt',
+      'tjcg' => 'đã gửi thành công',
+      'tjsb' => 'Gửi không thành công',
+
+      'cbslxyzxed'=>'Số tiền gửi không được nhỏ hơn số tiền tối thiểu',
+      'cbsldyzded'=>'Số tiền gửi không được lớn hơn số tiền tối đa',
+
+      'zhzcyebz'=>'Số dư tài khoản tài khoản không đủ',
+      'bbzcyebz'=>'Số dư tài sản tiền tệ không đủ',
+      'zhcg'=>'Đã chuyển đổi thành công',
+      'zhsb'=>'Chuyển đổi thất bại',
+      'hblxbzq'=>'Loại tiền tệ không chính xác',
+
+      'sjzbd' => 'không tìm thấy dữ liệu',
+      'qsrzfmm'=>'Vui lòng nhập mật khẩu thanh toán',
+      'zfmmcw'=>'lỗi mật khẩu thanh toán',
+      'zwqb'=>'Không có ví',
+      'zzcg'=>'Chuyển khoản thành công',
+
+
+];

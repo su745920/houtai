@@ -1,0 +1,2 @@
+currency表
+is_earn:0 USDT设置为1 其他币种：0

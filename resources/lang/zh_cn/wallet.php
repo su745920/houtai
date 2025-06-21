@@ -1,0 +1,57 @@
+<?php
+
+return [
+
+    'cscw' => '参数错误',
+    'cbbcz' => '钱包不存在',
+    'yhwzd' => '用户未找到',
+    'zshmytjbz' => '暂时还没有添加币种',
+    'srjebnwfs' => '输入的金额不能为负数',
+    'hzcg' => '划转成功',
+    'czsb' => '操作失败:',
+    'hzzhlxbxxz' => '划转账户类型必须选择',
+    'hzzhlxbnxt' => '划转账户类型不能相同',
+    'hzzhlxbgf' => '划转账户类型不合法,只能是:',
+    'hzslbxdy' => '划转数量必须大于0',
+    'kczyebz' => '可操作余额不足',
+    'czcg' => '操作成功',
+    'czsb' => '操作失败:',
+    'nhmytjtbdz' => '您还没有添加提币地址',
+    'cbzbcz' => '此币种不存在',
+    'yjyctbdz'=>'已经有此提币地址',
+    'tjtbdzcg'=>'添加提币地址成功',
+    'ctbdzbcz'=>'此提币地址不存在',
+    'nmyqxsccdz'=>'您没有权限删除此地址',
+    'sctbdzcg'=>'删除提币地址成功',
+    'yzmbxtx'=>'验证码必须填写',
+    'yzmcw'=>'验证码错误',
+    'qxzxylx'=>'请选择协议类型',
+    'dqbztbbqbnwk'=>'当前币种提币标签不能为空',
+    'srdjebxdy'=>'输入的金额必须大于0',
+    'tbslbnxyzxz'=>'提币数量不能少于最小值',
+    'tbslbngyzdz'=>'提币数量不能高于最大值',
+    'yebz'=>'余额不足',
+    'yebzyzfsxf'=>'余额不足以支付手续费',
+    'tbsqycgddsh'=>'提币申请已成功，等待审核',
+    'tjcg' => '提交成功',
+    'tjsb' => '提交失败',
+
+    'cbslxyzxed'=>'充币数量不能小于最小额度',
+    'cbsldyzded'=>'充币数量不能大于最大额度',
+
+    'zhzcyebz'=>'账户资产余额不足',
+    'bbzcyebz'=>'币币资产余额不足',
+    'zhcg'=>'转换成功',
+    'zhsb'=>'转换失败',
+    'hblxbzq'=>'货币类型不正确',
+
+    'sjzbd' => '数据找不到',
+    'qsrzfmm'=>'请输入支付密码',
+    'zfmmcw'=>'支付密码错误',
+    'zwqb'=>'暂无钱包',
+    'zzcg'=>'转账成功',
+    'dqywchddk'=>'当前有未偿还的贷款',
+    'qsczfpz' => '请上传支付凭证'
+
+
+];

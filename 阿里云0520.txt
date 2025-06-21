@@ -1,0 +1,297 @@
+address
+:
+""
+change_balance
+:
+"800.022600"
+contract_address
+:
+""
+cost
+:
+null
+create_time
+:
+"2023-09-08 10:27:42"
+currency
+:
+32
+currency_coin
+:
+{id: 32, name: "BTC", clone_name: "BTC", qrcode: null, address: null, get_address: "", sort: 0,…}
+currency_name
+:
+"BTC"
+currency_type
+:
+"btc"
+cz_amount
+:
+null
+earn_balance
+:
+null
+erc20_address
+:
+""
+id
+:
+14227
+is_legal
+:
+0
+is_lever
+:
+1
+is_match
+:
+1
+is_micro
+:
+1
+is_recharge
+:
+0
+is_transfer
+:
+1
+is_withdraw
+:
+0
+label
+:
+""
+legal_balance
+:
+null
+lever_balance
+:
+null
+lock_change_balance
+:
+null
+lock_earn_balance
+:
+null
+lock_legal_balance
+:
+null
+lock_lever_balance
+:
+null
+lock_micro_balance
+:
+null
+logo
+:
+"/coin/new_icon_btc_64.png"
+micro_balance
+:
+null
+multi_protocol
+:
+0
+sort
+:
+0
+status
+:
+0
+total_change_balance
+:
+22156225.8957
+total_legal_balance
+:
+0
+total_lever_balance
+:
+0
+total_micro_balance
+:
+0
+usdt_price
+:
+"27694.50000"
+user_id
+:
+489
+
+
+
+
+$.ajax({
+            type: 'POST'
+            ,url: url
+            ,data: serData
+            ,dataType: "json"
+            ,success: function(result) {
+                console.log(JSON.stringify(result));
+                if(result.code == 0) {
+
+                    layer.msg("操作成功", {
+                        icon: 1,
+                        time: 1000,
+                        end: function() {
+                            parent.window.location.reload();
+                        }
+                    });
+                } else {
+                    layer.msg(data.msg, {icon:2});
+                }
+            }
+            ,error: function(data) {
+                //重新遍历获取JSON的KEY
+                var str = '服务器验证失败！';
+                for(var o in data.responseJSON.errors) {
+                    str += data.responseJSON.errors[o];
+                }
+                layer.msg(str, {icon:2});
+            }
+        });
+        parent.layui.layer.close();
+        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+
+
+
+
+
+
+
+
+
+
+
+public function sellCoin(Request $request)
+    {
+        $deal_send_id = $request->input('id', null);
+        if (empty($deal_send_id)) {
+            return $this->error('参数错误');
+        }
+        $user_id = Users::getUserId();
+        //实名认证检测
+        $user_real = UserReal::where('user_id', $user_id)
+            ->where('review_status', 2)
+            ->first();
+        if (!$user_real) {
+            return response()->json(['type' => '998', 'message' => '您还没有通过实名认证']);
+        }
+        //收款信息检测
+        $user_cash_info = UserCashInfo::where('user_id', $user_id)->first();
+        if (!$user_cash_info) {
+            return response()->json(['type' => '997', 'message' => '您还没有设置收款信息']);
+        }
+
+        DB::beginTransaction();
+        try {
+            $legal_deal_send = C2cDealSend::lockForUpdate()->find($deal_send_id);
+            if (empty($legal_deal_send)) {
+                DB::rollback();
+                return $this->error('无此记录');
+            }
+            if (!empty($legal_deal_send->is_done)) {
+                DB::rollback();
+                return $this->error('此条交易已完成');
+            }
+
+            $money = bc_mul($legal_deal_send->total_number, $legal_deal_send->price, 6);
+            $number = $legal_deal_send->total_number;
+
+            $seller = Users::find($legal_deal_send->seller_id);
+            if (empty($seller)) {
+                DB::rollback();
+                return $this->error('未找到该发布用户');
+            }
+
+            if ($user_id == $seller->id) {
+                DB::rollback();
+                return $this->error('不能操作自己的');
+            }
+            $users_wallet = UsersWallet::where('user_id', $user_id)
+                ->where('currency', $legal_deal_send->currency_id)
+                ->lockForUpdate()
+                ->first();
+            if (empty($users_wallet)) {
+                DB::rollback();
+                return $this->error('您无此钱包账号');
+            }
+            if (!empty($users_wallet->status)) {
+                DB::rollback();
+                return $this->error('您的钱包已被锁定，请联系管理员');
+            }
+
+            $hasNonDone = C2cDeal::where([
+                ['user_id', '=', $user_id],
+            ])->whereIn('is_sure', [0, 3])->first();
+            if (!empty($hasNonDone)) {
+                DB::rollBack();
+                return $this->error('检测有未完成交易，请完成后再来！');
+            }
+            $fee = 0;
+            if ($legal_deal_send->type == 'buy') { //求购
+                $c2c_sell_fee = Setting::getValueByKey('c2c_sell_fee', 0);
+                $c2c_sell_fee = bc_div($c2c_sell_fee, 100);
+
+                $fee = bc_mul($number, $c2c_sell_fee);
+                $should_deduct_number = bc_add($number, $fee);
+
+                // do something
+                if ($users_wallet->legal_balance < $should_deduct_number) {
+                    DB::rollback();
+                    return $this->error('您的余额不足');
+                }
+                if ($users_wallet->lock_legal_balance < 0) {
+                    DB::rollback();
+                    return $this->error('您的法币冻结资金异常,请查看您是否有正在进行的挂单');
+                }
+
+                $legal_deal_send->is_done = 1;
+                $legal_deal_send->save();
+                $result = change_wallet_balance($users_wallet, 1, -$number, AccountLog::C2C_DEAL_USER_SELL, 'C2C出售给买家法币,余额减少','C2C sold to Buyer in French currency,Decrease in balance');
+                if ($result !== true) {
+                    throw new \Exception($result);
+                }
+                $result = change_wallet_balance($users_wallet, 1, $number, AccountLog::C2C_DEAL_USER_SELL, 'C2C出售给买家法币,锁定余额增加','C2C sold to Buyer in French currency,Lock balance increase', true);
+                if ($result !== true) {
+                    throw new \Exception($result);
+                }
+                $result = change_wallet_balance($users_wallet, 1, -$fee, AccountLog::C2C_TRADE_FEE, 'C2C出售给买家法币,扣除手续费','C2C sold to Buyer in French currency,Deduct handling charges');
+                if ($result !== true) {
+                    throw new \Exception($result);
+                }
+            } elseif ($legal_deal_send->type == 'sell') {
+                //出售
+                // $legal_deal_send->surplus_number -= $number;
+                // $legal_deal_send->surplus_number = bc_sub($legal_deal_send->surplus_number,$number,5);
+                // if ($legal_deal_send->surplus_number == 0) {
+                //     $legal_deal_send->is_done = 1;
+                // }
+                $fee = $legal_deal_send->out_fee;
+                $legal_deal_send->is_done = 1;
+                $legal_deal_send->save();
+            }
+            $legal_deal = new C2cDeal();
+            $legal_deal->legal_deal_send_id = $deal_send_id;
+            $legal_deal->user_id = $user_id;
+            $legal_deal->seller_id = $seller->id;
+            $legal_deal->out_fee = $fee;
+            $legal_deal->number = $number; //交易数量
+            $legal_deal->create_time = time();
+            $legal_deal->save();
+
+            if ($legal_deal_send->type == 'buy') {
+                //Setting::sendSmsForSmsBao($seller->account_number, '您发布的求购信息有用户出售啦，请去 APP 查看吧～');
+            } else {
+                //Setting::sendSmsForSmsBao($seller->account_number, '您发布的出售信息有用户购买啦，请去 APP 查看吧～');
+            }
+
+            DB::commit();
+            return $this->success([
+                'msg' => '操作成功，请联系卖家确认订单',
+                'data' => $legal_deal,
+            ]);
+
+        } catch (\Exception $exception) {
+            DB::rollback();
+            return $this->error($exception->getMessage() . ',错误位于第' . $exception->getLine() . '行');
+        }
+    }

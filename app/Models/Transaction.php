@@ -1,0 +1,238 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: swl
+ * Date: 2018/7/3
+ * Time: 10:23
+ */
+
+namespace App\Models;
+
+class Transaction extends Model
+{
+    protected $table = 'transaction';
+    public $timestamps = false;
+    const CREATED_AT = 'time';
+    protected $appends = [
+        'from_address',
+        'to_address',
+        'from_account',
+        'to_account',
+        'total',
+        'currency_name'
+    ];
+
+    public static function createData($data)
+    {
+        if (empty($data)) {
+            return false;
+        }
+        if (empty($data["from_user_id"]) || empty($data["to_user_id"]) || empty($data["number"])) {
+            return false;
+        }
+
+        $transaction = new self();
+        $transaction->from_user_id = $data["from_user_id"];
+        $transaction->to_user_id = $data["to_user_id"];
+        $transaction->type = empty($data["type"]) ? 1 : $data["type"];
+        $transaction->number = $data["number"];
+        $transaction->remarks = $data["remarks"];
+        $transaction->time = time();
+        $transaction->status = 1;
+
+        if ($transaction->save()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static function pushNews($currency_id, $legal_id)
+    {
+        $in = TransactionIn::with(['legalcoin', 'currencycoin'])
+            ->where("number", ">", 0)
+            ->where("currency", $currency_id)
+            ->where("legal", $legal_id)
+            ->groupBy('currency', 'legal', 'price')
+            ->orderBy('price', 'desc')
+            ->select([
+                'currency',
+                'legal',
+                'price',
+            ])->selectRaw('sum(`number`) as `number`')
+            ->limit(5)
+            ->get()
+            ->toArray();
+        $out = TransactionOut::with(['legalcoin', 'currencycoin'])
+            ->where("number", ">", 0)
+            ->where("currency", $currency_id)
+            ->where("legal", $legal_id)
+            ->groupBy('currency', 'legal', 'price')
+            ->orderBy('price', 'asc')
+            ->select([
+                'currency',
+                'legal',
+                'price',
+            ])->selectRaw('sum(`number`) as `number`')
+            ->limit(5)
+            ->get()
+            ->toArray();
+
+        krsort($out);
+        $out_data = array();
+        foreach ($out as $o) {
+            array_push($out_data, $o);
+        }
+
+        $bids = [];
+        foreach ($in as $key => $value) {
+            $bids [] = [$value['price'], $value['number']]; 
+        }
+        $asks = [];
+        foreach ($out as $key  => $value) {
+            $asks [] = [$value['price'], $value['number']]; 
+        }
+ 
+        $last_price = 0;
+        $last = TransactionComplete::orderBy('id', 'desc')->where("currency", $currency_id)->where("legal", $legal_id)->first();
+        if (!empty($last)) {
+            $last_price = $last->price;
+        }
+        $legal = Currency::find($legal_id);
+        $currency = Currency::find($currency_id);
+        $send = [
+            'type' => 'market_depth',
+            'base-currency' => $currency->name,
+            'quote-currency' => $legal->name,
+            'legal_id' => $legal_id,
+            'legal_name' => $legal->name,
+            'currency_id' => $currency_id,
+            'currency_name' => $currency->name,            
+            'bids' => $bids, //买入
+            'asks' => $asks, //卖出
+        ];
+        /*
+        $send = array(
+            "type" => "transaction",
+            "in" => json_encode($in),
+            "out" => json_encode($out_data),
+            "last_price" => $last_price,
+            "currency_id" => $currency_id,
+            "legal_id" => $legal_id
+        );
+        */
+        return UserChat::sendText($send);
+    }
+
+    public function getFromAddressAttribute()
+    {
+        return $this->hasOne(UsersWallet::class, 'user_id', 'from_user_id')->value('address');
+    }
+    public function getToAddressAttribute()
+    {
+        return $this->hasOne(UsersWallet::class, 'user_id', 'to_user_id')->value('address');
+    }
+    public function getFromAccountAttribute()
+    {
+        return $this->hasOne(Users::class, 'id', 'from_user_id')->value('account_number');
+    }
+    public function getToAccountAttribute()
+    {
+        return $this->hasOne(Users::class, 'id', 'to_user_id')->value('account_number');
+    }
+    public function getTimeAttribute()
+    {
+        $value = $this->attributes['time'];
+        return $value ? date('Y-m-d H:i:s', $value) : '';
+    }
+    public function getCurrencyNameAttribute()
+    {
+        return $this->hasOne(Currency::class, 'id', 'currency')->value('name');
+    }
+    /**
+     * [推送交易深度]
+     * @param  [type] $currency_id [description]
+     * @param  [type] $legal_id    [description]
+     * @return [type]              [description]
+     */
+    public static function pushDepth($currency_id, $legal_id)
+    {
+        $in = TransactionIn::with(['legalcoin', 'currencycoin'])
+            ->where("number", ">", 0)
+            ->where("currency", $currency_id)
+            ->where("legal", $legal_id)
+            ->groupBy('currency', 'legal', 'price')
+            //->orderBy('price', 'desc')
+            ->orderBy('create_time', 'desc')
+            ->select([
+                'currency',
+                'legal',
+                'price',
+            ])->selectRaw('sum(`number`) as `number`')
+            ->limit(10)
+            ->get()
+            ->toArray();
+        rsort($in);
+        $int_data = array();
+        foreach ($in as $o) {
+        	$a=[];
+        	$a[]=$o['price'];
+        	$a[]=$o['number'];
+            array_push($int_data, $a);
+        }
+        
+        $out = TransactionOut::with(['legalcoin', 'currencycoin'])
+            ->where("number", ">", 0)
+            ->where("currency", $currency_id)
+            ->where("legal", $legal_id)
+            ->groupBy('currency', 'legal', 'price')
+            //->orderBy('price', 'asc')
+            ->orderBy('create_time', 'desc')
+            ->select([
+                'currency',
+                'legal',
+                'price',
+            ])->selectRaw('sum(`number`) as `number`')
+            ->limit(10)
+            ->get()
+            ->toArray();
+
+        sort($out);
+        
+        $out_data = array();
+        foreach ($out as $o) {
+        	$b=[];
+        	$b[]=$o['price'];
+        	$b[]=$o['number'];
+            array_push($out_data, $b);
+        }
+
+        $last_price = 0;
+        $last = TransactionComplete::orderBy('id', 'desc')->where("currency", $currency_id)->where("legal", $legal_id)->first();
+        if (!empty($last)) {
+            $last_price = $last->price;
+        }
+		$currency = Currency::find($currency_id);
+        $legal = Currency::find($legal_id);
+        
+        $send = array(
+            "type" => "market_depth",
+            "bids" => $int_data,
+            "asks" =>$out_data ,
+            'symbol' => $currency->name . '/' . $legal->name,
+            "last_price" => $last_price,
+            "currency_id" => $currency_id,
+            "legal_id" => $legal_id
+        );
+        return UserChat::sendText($send);
+    }
+   //获取交易总额
+    public function getTotalAttribute()
+    {
+        $number = $this->attributes['number'];
+        $price = $this->attributes['price'];
+        $tol = $number * $price;
+        return $tol;
+    }
+}

@@ -1,0 +1,31 @@
+<?php
+
+return [
+
+    'usernofound' => 'Utilisateur introuvable',
+    'account' => 'Veuillez saisir le numéro de compte',
+    'password' => 'Veuillez saisir le mot de passe',
+    'mmcw'=>'Erreur de mot de passe',
+    'cscw'=>'Erreur de paramètre',
+    'lcmmbyz'=>'Les mots de passe sont incohérents deux fois',
+    'mmznzwzj'=>'Le mot de passe ne peut être que 6-Entre 16 bits',
+    'yzmcw'=>'Erreur de code de vérification',
+    'zhycz'=>'Le compte existe déjà',
+    'qtxzqdyqm'=>"Veuillez remplir le Code d'invitation correct",
+    'zccg'=>'Inscription réussie',
+    'qsrmmhqrmm'=>'Veuillez saisir votre mot de passe ou confirmer votre mot de passe',
+    'srlcmmbyz'=>'Les mots de passe entrés deux fois sont incohérents',
+    'zhbcz'=>"Le compte n'existe pas",
+    'yzmbzq'=>'Code de vérification incorrect',
+    'yzmcw'=>'Erreur de code de vérification',
+    'xgmmcg'=>'Mot de passe modifié avec succès',
+    'qsrzfmm'=>'Veuillez saisir le mot de passe de paiement',
+    'yhbcz'=>"L'utilisateur n'existe pas",
+    'nwszzfmm'=>"Vous n'avez pas de mot de passe de paiement défini",
+    'zfmmbcz'=>'Mot de passe de paiement incorrect',
+    'qsryzm'=>'Veuillez saisir le Code de vérification',
+    'yzcg'=>'Validation réussie',
+    'qsmrz'=>'Veuillez vérifier votre vrai nom',
+    'ndsmrzhwtg'=>"Votre vrai nom n'a pas encore été certifié",
+    'gzhydjqlxkf'=>'Ce membre est gelé, veuillez contacter le service à la clientèle',
+];
